@@ -1,0 +1,44 @@
+package request
+
+// {{StructName}}IndexReq 列表
+type {{StructName}}IndexReq struct {
+	//Name string `form:"name,optional"`
+}
+
+func (r {{StructName}}IndexReq) ValidateFunc() error {
+	return nil
+}
+
+// {{StructName}}ShowReq 详情
+type {{StructName}}ShowReq struct {
+	ID int32 `path:"id" validate:"required"`
+}
+
+func (r {{StructName}}ShowReq) ValidateFunc() error {
+	return nil
+}
+
+// {{StructName}}StoreReq 新增
+type {{StructName}}StoreReq struct {}
+
+func (r {{StructName}}StoreReq) ValidateFunc() error {
+	return nil
+}
+
+// {{StructName}}UpdateReq 修改
+type {{StructName}}UpdateReq struct {
+	ID int32 `path:"id" validate:"required"`
+}
+
+func (r {{StructName}}UpdateReq) ValidateFunc() error {
+	return nil
+}
+
+// {{StructName}}DestroyReq 删除
+type {{StructName}}DestroyReq struct {
+	ID int32 `path:"id" validate:"required"`
+}
+
+func (r {{StructName}}DestroyReq) ValidateFunc() error {
+	return nil
+}

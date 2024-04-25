@@ -1,0 +1,28 @@
+Debug: true
+
+#数据库
+Connection: "mysql"
+Mysql:
+  Host: "127.0.0.1"
+  Port: "3306"
+  Username: "root"
+  Password: "root"
+  Dbname: "test"
+  Charset: "utf8mb4"
+  MaxIdleConnections: 100
+  MaxOpenConnections: 25
+  MaxLifeSeconds: 300
+Postgres:
+  Host: "127.0.0.1"
+  Port: "3306"
+  Username: ""
+  Password: ""
+  Dbname: ""
+
+#redis
+Host: 0.0.0.0
+Type: node
+Pass: root
+Tls: false
+NonBlock: false
+PingTimeout: 1s

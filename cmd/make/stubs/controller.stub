@@ -1,0 +1,111 @@
+package controller
+
+import (
+	"github.com/xian1367/layout-go-zero/app/{{ServiceName}}/request"
+	"github.com/xian1367/layout-go-zero/orm/model/{{PackageName}}"
+	"github.com/xian1367/layout-go-zero/pkg/http"
+)
+
+type {{StructName}}Controller struct{}
+
+// Index
+// @Summary 列表
+// @Description 列表
+// @Tags {{ServiceName}}.{{PackageName}}
+// @Accept */*
+// @Produce json
+// @Param payload query http.Query true "payload"
+// @Success 200 {object} http.Success{data=http.Paging{list=[]{{PackageName}}.{{StructName}}}}
+// @Failure 500 {object} http.Failure
+// @Router /{{PackageName}} [get]
+func (ctrl *{{StructName}}Controller) Index(c *http.Controller, req request.{{StructName}}IndexReq) {
+	_, pager := {{PackageName}}.Paginate(c.Request)
+	c.Ok(pager)
+}
+
+// Show
+// @Summary 详情
+// @Description 详情
+// @Tags {{ServiceName}}.{{PackageName}}
+// @Accept */*
+// @Produce json
+// @Param payload body request.{{StructName}}ShowReq true "payload"
+// @Success 200 {object} http.Success{data={{PackageName}}.{{StructName}}}
+// @Failure 500 {object} http.Failure
+// @Router /{{PackageName}}/{id} [get]
+func (ctrl *{{StructName}}Controller) Show(c *http.Controller, req request.{{StructName}}ShowReq) {
+	{{PackageName}}Model := {{PackageName}}.Get(req.ID)
+	if {{PackageName}}Model.ID == 0 {
+		c.Abort404()
+		return
+	}
+	c.Ok({{PackageName}}Model)
+}
+
+// Store
+// @Summary 新增
+// @Description 新增
+// @Tags {{ServiceName}}.{{PackageName}}
+// @Accept json
+// @Produce json
+// @Param payload body request.{{StructName}}StoreReq true "payload"
+// @Success 201 {object} http.Success{data={{PackageName}}.{{StructName}}}
+// @Failure 500 {object} http.Failure
+// @Router /{{PackageName}} [post]
+func (ctrl *{{StructName}}Controller) Store(c *http.Controller, req request.{{StructName}}StoreReq) {
+	{{PackageName}}Model := {{PackageName}}.{{StructName}}{}
+	c.DB.Create(&{{PackageName}}Model)
+	if {{PackageName}}Model.ID == 0 {
+		c.Abort("创建失败，请稍后尝试~")
+	}
+	c.Created({{PackageName}}Model)
+}
+
+// Update
+// @Summary 更新
+// @Description 更新
+// @Tags {{ServiceName}}.{{PackageName}}
+// @Accept json
+// @Produce json
+// @Param payload body request.{{StructName}}UpdateReq true "payload"
+// @Success 200 {object} http.Success{data={{PackageName}}.{{StructName}}}
+// @Failure 500 {object} http.Failure
+// @Router /{{PackageName}}/{id} [put]
+func (ctrl *{{StructName}}Controller) Update(c *http.Controller, req request.{{StructName}}UpdateReq) {
+	{{PackageName}}Model := {{PackageName}}.Get(req.ID)
+	if {{PackageName}}Model.ID == 0 {
+		c.Abort404()
+		return
+	}
+
+	rowsAffected := c.DB.Save(&{{PackageName}}Model).RowsAffected
+	if rowsAffected == 0 {
+		c.Abort("更新失败，请稍后尝试~")
+		return
+	}
+	c.Ok({{PackageName}}Model)
+}
+
+// Destroy
+// @Summary 删除
+// @Description 删除
+// @Tags {{ServiceName}}.{{PackageName}}
+// @Accept json
+// @Produce json
+// @Param payload body request.{{StructName}}DestroyReq true "payload"
+// @Success 200
+// @Failure 500 {object} http.Failure
+// @Router /{{PackageName}}/{id} [delete]
+func (ctrl *{{StructName}}Controller) Destroy(c *http.Controller, req request.{{StructName}}DestroyReq) {
+	{{PackageName}}Model := {{PackageName}}.Get(req.ID)
+	if {{PackageName}}Model.ID == 0 {
+		c.Abort404()
+		return
+	}
+
+	rowsAffected := c.DB.Delete(&{{PackageName}}Model).RowsAffected
+	if rowsAffected == 0 {
+		c.Abort("删除失败，请稍后尝试~")
+		return
+	}
+}

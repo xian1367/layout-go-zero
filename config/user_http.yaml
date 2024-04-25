@@ -1,0 +1,30 @@
+Name: user_http
+Host: localhost
+Port: 6001
+Mode: dev
+
+#日志
+Log:
+  ServiceName: user_http
+  Mode: console #file
+  TimeFormat: 2006-01-02 15:04:05
+  Level: debug
+  Path: ./logs/user_http
+  Rotation: daily
+
+#jwtAuth
+JwtAuth:
+  AccessSecret: AccessSecret
+
+##监控
+#Prometheus:
+#  Host: 0.0.0.0
+#  Port: 4001
+#  Path: /metrics
+
+#链路追踪
+Telemetry:
+  Name: user_http
+  Endpoint: http://127.0.0.1:14268/api/traces
+  Sampler: 1.0
+  Batcher: jaeger

@@ -1,0 +1,18 @@
+package main
+
+import (
+	"github.com/xian1367/layout-go-zero/app/{{ServiceName}}/route"
+	"github.com/xian1367/layout-go-zero/config"
+	"github.com/xian1367/layout-go-zero/pkg/console"
+	"github.com/xian1367/layout-go-zero/pkg/http"
+	"github.com/xian1367/layout-go-zero/pkg/orm"
+)
+
+func main() {
+	config.Init("{{ServiceName}}")
+	orm.Init()
+	console.UI()
+
+	http.Routers = route.Routes{}
+	http.Init()
+}

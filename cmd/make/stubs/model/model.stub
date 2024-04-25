@@ -1,0 +1,17 @@
+package {{PackageName}}
+
+import (
+	"github.com/xian1367/layout-go-zero/orm/gen/gen"
+	"github.com/xian1367/layout-go-zero/orm/model"
+)
+
+const TableName = "{{TableName}}"
+
+func ({{StructName}}) TableName() string {
+	return TableName
+}
+
+type {{StructName}} struct {
+    model.BaseModel
+    model_gen.{{StructName}}
+}

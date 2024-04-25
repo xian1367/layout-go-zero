@@ -1,0 +1,26 @@
+package {{PackageName}}
+
+import (
+    "github.com/xian1367/layout-go-zero/pkg/http/paginate"
+	"github.com/xian1367/layout-go-zero/pkg/orm"
+	"net/http"
+)
+
+func Get(id interface{}) ({{VariableName}} {{StructName}}) {
+    orm.DB.Where("id = ?", id).First(&{{VariableName}})
+    return
+}
+
+func All() ({{VariableNamePlural}} []{{StructName}}) {
+    orm.DB.Find(&{{VariableNamePlural}})
+    return
+}
+
+func Paginate(r *http.Request) ({{VariableNamePlural}} []{{StructName}}, paging scope.Paging) {
+	paging = paginate.Paginate(
+		r,
+	    orm.DB.Model({{StructName}}{}),
+		&{{VariableNamePlural}},
+	)
+	return
+}
