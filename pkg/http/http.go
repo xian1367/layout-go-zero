@@ -1,7 +1,6 @@
 package http
 
 import (
-	"github.com/davecgh/go-spew/spew"
 	"github.com/spf13/cast"
 	"github.com/swaggo/http-swagger/v2"
 	_ "github.com/xian1367/layout-go-zero/app/user_http/docs"
@@ -36,7 +35,6 @@ func Init() {
 
 func RegisterSwagger() {
 	url := "http://" + config.Get().RestConf.Host + ":" + cast.ToString(config.Get().RestConf.Port) + "/swagger/doc.json"
-	spew.Dump(url)
 	Server.AddRoute(
 		rest.Route{ // 添加路由
 			Method: http.MethodGet,

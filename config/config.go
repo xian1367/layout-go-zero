@@ -22,6 +22,11 @@ type Common struct {
 
 type Http struct {
 	rest.RestConf
+	JwtAuth struct {
+		AccessSecret           string
+		AccessExpire           int
+		AccessMaxRefreshExpire int
+	}
 }
 
 type Cmd struct {
