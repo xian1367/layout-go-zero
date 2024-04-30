@@ -1,12 +1,12 @@
 package http
 
 type Request interface {
-	ValidateFunc() error
+	ValidateFunc(*Controller) error
 }
 
 type Req struct {
 }
 
-func (r Req) ValidateFunc() error {
+func (r Req) ValidateFunc(c *Controller) error {
 	return nil
 }

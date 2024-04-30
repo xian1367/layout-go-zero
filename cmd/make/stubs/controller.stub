@@ -19,7 +19,7 @@ type {{StructName}}Controller struct{}
 // @Failure 500 {object} http.Failure
 // @Router /{{PackageName}} [get]
 func (ctrl *{{StructName}}Controller) Index(c *http.Controller, req request.{{StructName}}IndexReq) {
-	_, pager := {{PackageName}}.Paginate(c.Request)
+	_, pager := {{PackageName}}.Paginate(c.R)
 	c.Ok(pager)
 }
 

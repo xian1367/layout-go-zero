@@ -13,16 +13,18 @@ import (
 type Controller struct {
 	DB       *gorm.DB
 	Logger   logx.Logger
-	Request  *http.Request
+	R        *http.Request
+	W        http.ResponseWriter
+	UserID   string
 	ClientIP string
-	Success
-	Failure
-	Error error
+	Success  Success
+	Failure  Failure
+	Error    error
 }
 
 func ControllerFunc(fn func(*Controller)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		c := ControllerDefault(r)
+		c := ControllerDefault(w, r)
 		fn(&c)
 
 		if c.Error == nil {
@@ -35,13 +37,14 @@ func ControllerFunc(fn func(*Controller)) http.HandlerFunc {
 
 func ControllerHandler[T Request](fn func(*Controller, T)) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		c := ControllerDefault(w, r)
+
 		var request T
-		err := ControllerRequest(w, r, &request)
+		err := ControllerRequest(&c, &request)
 		if err != nil {
 			return
 		}
 
-		c := ControllerDefault(r)
 		fn(&c, request)
 
 		if c.Error == nil {
@@ -52,9 +55,11 @@ func ControllerHandler[T Request](fn func(*Controller, T)) http.HandlerFunc {
 	}
 }
 
-func ControllerDefault(r *http.Request) Controller {
+func ControllerDefault(w http.ResponseWriter, r *http.Request) Controller {
 	return Controller{
-		Request:  r,
+		W:        w,
+		R:        r,
+		UserID:   r.Context().Value("user_id").(string),
 		ClientIP: httpx.GetRemoteAddr(r),
 		DB:       orm.DB.WithContext(r.Context()),
 		Logger:   logx.WithContext(r.Context()),
@@ -67,22 +72,22 @@ func ControllerDefault(r *http.Request) Controller {
 	}
 }
 
-func ControllerRequest[T Request](w http.ResponseWriter, r *http.Request, request *T) (err error) {
-	if err = httpx.Parse(r, request); err != nil {
-		ValidationError(w, err)
+func ControllerRequest[T Request](c *Controller, request *T) (err error) {
+	if err = httpx.Parse(c.R, request); err != nil {
+		ValidationError(c.W, err)
 		return
 	}
 
-	validator.SetTranslator(strings.Split(r.Header.Get("Accept-Language"), ",")...)
-	err, errs := validator.Validate(r.Context(), request)
+	validator.SetTranslator(strings.Split(c.R.Header.Get("Accept-Language"), ",")...)
+	err, errs := validator.Validate(c.R.Context(), request)
 	if err != nil {
-		ValidationErrors(w, errs)
+		ValidationErrors(c.W, errs)
 		return
 	}
 
 	v := *request
-	if err = v.ValidateFunc(); err != nil {
-		ValidationError(w, err)
+	if err = v.ValidateFunc(c); err != nil {
+		ValidationError(c.W, err)
 	}
 	return
 }
