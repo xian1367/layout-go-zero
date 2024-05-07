@@ -1,7 +1,7 @@
 package user
 
 import (
-	http2 "github.com/xian1367/layout-go-zero/pkg/http"
+	server "github.com/xian1367/layout-go-zero/pkg/http"
 	"github.com/xian1367/layout-go-zero/pkg/orm"
 	"net/http"
 )
@@ -16,8 +16,8 @@ func All() (users []User) {
 	return
 }
 
-func Paginate(r *http.Request) (users []User, paging http2.Paging) {
-	paging = http2.Paginate(
+func Paginate(r *http.Request) (users []User, paging server.Paging) {
+	paging = server.Paginate(
 		r,
 		orm.DB.Model(User{}),
 		&users,

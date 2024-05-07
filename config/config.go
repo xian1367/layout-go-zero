@@ -30,15 +30,15 @@ type Http struct {
 }
 
 type Cmd struct {
-	logx.LogConf
+	Log logx.LogConf
 }
 
 type Cron struct {
-	logx.LogConf
+	Log logx.LogConf
 }
 
 type Queue struct {
-	logx.LogConf
+	Log logx.LogConf
 }
 
 type Database struct {

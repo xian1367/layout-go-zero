@@ -10,6 +10,7 @@ type UserIndexReq struct {
 }
 
 func (r UserIndexReq) ValidateFunc(c *http.Controller) error {
+
 	return nil
 }
 
@@ -23,7 +24,7 @@ func (r UserShowReq) ValidateFunc(c *http.Controller) error {
 }
 
 // UserStoreReq 新增
-type UserStoreReq struct {}
+type UserStoreReq struct{}
 
 func (r UserStoreReq) ValidateFunc(c *http.Controller) error {
 	return nil

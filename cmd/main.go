@@ -24,7 +24,7 @@ func main() {
 		// rootCmd 的所有子命令都会执行以下代码
 		PersistentPreRun: func(command *cobra.Command, args []string) {
 			config.Init("cmd")
-			logc.MustSetup(config.Get().Cmd.LogConf)
+			logc.MustSetup(config.Get().Cmd.Log)
 			orm.Init()
 		},
 	}

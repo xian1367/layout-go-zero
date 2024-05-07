@@ -6,7 +6,7 @@ Mode: dev
 #日志
 Log:
   ServiceName: user_http
-  Mode: console #file
+  Mode: console #console/file
   TimeFormat: 2006-01-02 15:04:05
   Level: debug
   Path: ./logs/user_http

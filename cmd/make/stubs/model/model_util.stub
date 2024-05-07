@@ -1,7 +1,7 @@
 package {{PackageName}}
 
 import (
-    "github.com/xian1367/layout-go-zero/pkg/http/paginate"
+	server "github.com/xian1367/layout-go-zero/pkg/http"
 	"github.com/xian1367/layout-go-zero/pkg/orm"
 	"net/http"
 )
@@ -16,8 +16,8 @@ func All() ({{VariableNamePlural}} []{{StructName}}) {
     return
 }
 
-func Paginate(r *http.Request) ({{VariableNamePlural}} []{{StructName}}, paging scope.Paging) {
-	paging = paginate.Paginate(
+func Paginate(r *http.Request) ({{VariableNamePlural}} []{{StructName}}, paging server.Paging) {
+	paging = server.Paginate(
 		r,
 	    orm.DB.Model({{StructName}}{}),
 		&{{VariableNamePlural}},

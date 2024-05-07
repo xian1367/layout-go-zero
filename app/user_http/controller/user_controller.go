@@ -57,6 +57,7 @@ func (ctrl *UserController) Store(c *http.Controller, req request.UserStoreReq) 
 	c.DB.Create(&userModel)
 	if userModel.ID == 0 {
 		c.Abort("创建失败，请稍后尝试~")
+		return
 	}
 	c.Created(userModel)
 }
