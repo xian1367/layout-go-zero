@@ -6,7 +6,13 @@ Golang服务开发架构
 
 ``` lua
 |-- layout-go-zero
-    |-- app                     #各服务存放文件夹
+    |-- app                     #服务中心
+    |   |-- user_http           #http服务
+    |       |-- controller      #控制器
+    |       |-- docs            #swagger文档
+    |       |-- request         #表单验证
+    |       |-- route           #路由
+    |   |-- user_rpc            #rpc服务
     |-- build                   #编译后的目录
     |-- cmd                     #命令
     |   |-- make                #代码生成命令
@@ -22,19 +28,14 @@ Golang服务开发架构
     |   |-- migration           #迁移文件
     |   |-- model               #model模型
     |   |-- seeder              #填充文件
-    |-- http                    #web
-    |   |-- api1                #web端,如user,merchant,admin
-    |       |-- controller      #控制器
-    |       |-- request         #表单
-    |       |-- route           #路由
     |-- pkg                     #自定义package
     |   |-- console             #打印
     |   |-- helper              #辅助函数
-    |   |-- http                #web服务
+    |   |-- http                #http
     |   |-- migrate             #数据迁移
     |   |-- queue               #队列
     |   |-- redis               #redis
-    |   |-- rpc                 #rpc服务
+    |   |-- rpc                 #rpc
     |   |-- seed                #数据填充
     |-- queue                   #队列
     |-- service                 #业务抽象层

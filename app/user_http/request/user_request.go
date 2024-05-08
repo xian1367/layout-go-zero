@@ -10,7 +10,6 @@ type UserIndexReq struct {
 }
 
 func (r UserIndexReq) ValidateFunc(c *http.Controller) error {
-
 	return nil
 }
 
