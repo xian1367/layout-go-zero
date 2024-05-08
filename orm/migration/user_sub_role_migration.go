@@ -6,13 +6,13 @@ import (
 )
 
 func init() {
-    type UserSubrole struct {
+	type UserSubRole struct {
 		model.IDField
 
-        Name     string `gorm:"type:varchar(255);not null;index"`
+		Name string `gorm:"type:varchar(255);not null;index"`
 
 		model.CommonTimestampsField
-    }
+	}
 
-    migrate.Add(&UserSubrole{})
+	migrate.Add(&UserSubRole{})
 }

@@ -29,7 +29,7 @@ var (
 
 func Setup(db *gorm.DB) *casbin.SyncedEnforcer {
 	once.Do(func() {
-		Apter, err := gormadapter.NewAdapterByDBUseTableName(db, "org", "casbin_rules")
+		Apter, err := gormadapter.NewAdapterByDBUseTableName(db, "", "casbin_rules")
 		if err != nil {
 			panic(err)
 		}
@@ -47,6 +47,5 @@ func Setup(db *gorm.DB) *casbin.SyncedEnforcer {
 		}
 	})
 
-	enforcer.Enforce()
 	return enforcer
 }
