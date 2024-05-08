@@ -7,33 +7,39 @@ import (
 	"github.com/xian1367/layout-go-zero/pkg/console"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"sync"
 )
 
 // DB 对象
-var DB *gorm.DB
-var SqlDB *sql.DB
+var (
+	DB    *gorm.DB
+	SqlDB *sql.DB
+	once  sync.Once
+)
 
 // Connect 连接数据库
 func Connect(dbConfig gorm.Dialector, _logger logger.Interface) {
-	// 使用 orm.Open 连接数据库
-	var err error
-	gormConfig := &gorm.Config{
-		PrepareStmt:            true,
-		SkipDefaultTransaction: true,
-	}
-	if _logger.(Logger).Logger != nil {
-		gormConfig.Logger = _logger
-	}
-	DB, err = gorm.Open(dbConfig, gormConfig)
-	if err != nil {
-		console.ExitIf(err)
-	}
+	once.Do(func() {
+		// 使用 orm.Open 连接数据库
+		var err error
+		gormConfig := &gorm.Config{
+			PrepareStmt:            true,
+			SkipDefaultTransaction: true,
+		}
+		if _logger.(Logger).Logger != nil {
+			gormConfig.Logger = _logger
+		}
+		DB, err = gorm.Open(dbConfig, gormConfig)
+		if err != nil {
+			console.ExitIf(err)
+		}
 
-	// 获取底层的 sqlDB
-	SqlDB, err = DB.DB()
-	if err != nil {
-		console.ExitIf(err)
-	}
+		// 获取底层的 sqlDB
+		SqlDB, err = DB.DB()
+		if err != nil {
+			console.ExitIf(err)
+		}
+	})
 }
 
 func Shutdown() {

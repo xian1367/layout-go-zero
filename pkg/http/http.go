@@ -10,11 +10,13 @@ import (
 	"net/http"
 )
 
-var Server *rest.Server
+var (
+	Server         *rest.Server
+	RouterRegister RegisterRoute
+	Router         *RouterGroup
+)
 
-var Routers Router
-
-type Router interface {
+type RegisterRoute interface {
 	RegisterRoutes()
 }
 
@@ -27,7 +29,8 @@ func Init() {
 	)
 	defer Server.Stop()
 
-	Routers.RegisterRoutes()
+	Router = &RouterGroup{}
+	RouterRegister.RegisterRoutes()
 	RegisterSwagger()
 
 	Server.Start()

@@ -2,7 +2,7 @@ package seeder
 
 import (
 	"fmt"
-	"github.com/xian1367/layout-go-zero/database/factory"
+	"github.com/xian1367/layout-go-zero/orm/factory"
 	"github.com/xian1367/layout-go-zero/pkg/console"
 	"github.com/xian1367/layout-go-zero/pkg/seed"
 	"gorm.io/gorm"

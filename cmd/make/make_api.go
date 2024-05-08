@@ -17,7 +17,7 @@ var CmdMakeApi = &cobra.Command{
 		createFileFromStub(dir+"main.go", "http/main", model, map[string]string{
 			"{{ServiceName}}": serviceName,
 		})
-		createFileFromStub(dir+"route/route.go", "http/route", model)
+		createFileFromStub(dir+"route/router_group.go", "http/route", model)
 
 		CmdMakeApiController.Run(cmd, args)
 		CmdMakeApiRequest.Run(cmd, args)

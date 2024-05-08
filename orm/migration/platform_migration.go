@@ -6,13 +6,13 @@ import (
 )
 
 func init() {
-    type {{StructName}} struct {
+	type Platform struct {
 		model.IDField
 
-        Name string `gorm:"type:varchar(32);not null;default:'';comment:姓名"`
+		Name string `gorm:"type:varchar(255);not null;index"`
 
 		model.CommonTimestampsField
-    }
+	}
 
-    migrate.Add(&{{StructName}}{})
+	migrate.Add(&Platform{})
 }

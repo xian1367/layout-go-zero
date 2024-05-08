@@ -12,7 +12,7 @@ type BaseModel struct {
 }
 
 type IDField struct {
-	ID int32 `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"` // ID
+	ID int32 `gorm:"column:id;type:int unsigned;primaryKey;autoIncrement:true" json:"id"` // ID
 
 }
 

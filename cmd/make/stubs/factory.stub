@@ -2,7 +2,7 @@ package factory
 
 import (
 	"github.com/brianvoe/gofakeit/v6"
-	"github.com/xian1367/layout-go-zero/database/model/{{PackageName}}"
+	"github.com/xian1367/layout-go-zero/orm/model/{{PackageName}}"
 )
 
 func Make{{StructNamePlural}}(count int) []{{PackageName}}.{{StructName}} {

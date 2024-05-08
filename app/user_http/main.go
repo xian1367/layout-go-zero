@@ -13,6 +13,6 @@ func main() {
 	orm.Init()
 	console.UI()
 
-	http.Routers = route.Routes{}
+	http.RouterRegister = route.Routes{}
 	http.Init()
 }
